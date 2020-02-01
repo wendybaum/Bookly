@@ -1,2 +1,2 @@
-# super-dev-trio
+# Bookly
 full stack web dev project 1
