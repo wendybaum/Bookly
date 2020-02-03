@@ -1,0 +1,39 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+h1, h2 {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+h3, h4, h5 {
+    font-family: 'Hind Vadodara', sans-serif;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, auto); 
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: 
+        "header"
+        "ui"
+        "results";
+    gap: 1rem;
+}
+
+#header {
+    grid-area: header;
+    color:#fff;
+    padding-left: 1rem;
+}
+
+#userInput {
+    grid-area: ui;
+    padding: 1rem;
+    line-height: 1.75rem;
+}
+
+#results {
+    grid-area: results;
+}
