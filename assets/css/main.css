@@ -1,30 +1,65 @@
+/* color palette */
+.purpleDark {
+    background-color: #7b1fa2;
+}
+
+.purpleAccent {
+    background-color: #ea80fc;
+}
+
+.text-purpleAccent {
+    color: #ea80fc;
+}
+
+.text-purpleLight {
+    color: #f3e5f5;
+}
+
 * {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: 'Cormorant Garamond', serif;
 }
 
-h3, h4, h5 {
+h3,
+h4,
+h5 {
     font-family: 'Hind Vadodara', sans-serif;
+}
+
+.space {
+    margin-left: .5rem;
 }
 
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(1, auto); 
+    grid-template-columns: repeat(1, auto);
     grid-template-rows: repeat(3, auto);
-    grid-template-areas: 
+    grid-template-areas:
         "header"
         "ui"
         "results";
     gap: 1rem;
 }
 
+.btn-outline-primary {
+    border-color: #ea80fc!important;
+}
+
+.btn {
+    color: #ea80fc!important;
+}
+
+.active {
+    border-color: #6a1b9a!important;
+}
+
 #header {
     grid-area: header;
-    color:#fff;
     padding-left: 1rem;
 }
 
@@ -36,4 +71,11 @@ h3, h4, h5 {
 
 #results {
     grid-area: results;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.list-group-item {
+    padding: .25rem 1rem;
 }
