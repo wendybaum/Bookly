@@ -1,4 +1,4 @@
-/* color palette */
+/* Color Palette */
 .purpleDark {
     background-color: #7b1fa2;
 }
@@ -15,6 +15,11 @@
     color: #f3e5f5;
 }
 
+body {
+    background-color: #f3e5f5;
+}
+
+/* General Styles */
 * {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
@@ -45,6 +50,7 @@ h5 {
         "ui"
         "results";
     gap: 1rem;
+    padding-bottom: 3rem;
 }
 
 .btn-outline-primary {
@@ -87,13 +93,18 @@ h5 {
     padding: .25rem 1rem;
 }
 
-/* @media screen and (min-width: 505px ) {
+.card {
+    width: 15rem;
+}
+
+/* Desktop version */
+@media screen and (min-width: 505px ) {
     .wrapper {
         display: grid;
         grid-template-columns: repeat(8, 1fr);
         grid-template-areas:
             "header header header header header header header header"
-            "userInstructions userInstructions"
+            "userInstructions userInstructions userInstructions userInstructions userInstructions userInstructions . ."
             "ui ui ui ui . . . ."
             "results results results results results results results results";
         gap: 1rem;
@@ -117,5 +128,4 @@ h5 {
         justify-content: space-around;
     }
 
-
-} */
+}
