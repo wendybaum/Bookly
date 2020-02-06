@@ -16,7 +16,7 @@
     integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./assets/css/main.css">
-  <title>Hello, world!</title>
+  <title>Bookly</title>
 </head>
 
 <body>
@@ -25,15 +25,15 @@
       <h1>Bookly</h1>
     </header>
     <section id="userInstructions">
-      <p>Enter your <span class="text-purpleAccent">Google Books</span> user name in the text box below. We will display
+      <p>Enter your <span class="text-purpleAccent">Google Books</span> UserId in the text box below. We will display
         your Bookshelf and include links to
         free copies from the Open Library initiative.</p>
     </section>
     <div id="userInput">
       <div class="form-group">
-        <input type="text" class="form-control" id="goodReadsUserName" placeholder="Google Books User Name">
+        <input type="text" class="form-control" id="goodReadsUserId" placeholder="Google Books UserId">
       </div>
-      <button type="submit" class="btn btn-large btn-outline-primary btn-primary">Submit</button>
+      <button type="submit" class="btn btn-large btn-outline-primary btn-primary" id="submitBtn">Submit</button>
     </div>
     <main id="results">
       <div class="card">
@@ -57,8 +57,13 @@
   <!-- Optional JavaScript -->
   <script src="https://kit.fontawesome.com/5cc434ff75.js" crossorigin="anonymous"></script>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  <!-- slim min not recognizing $ -->
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script> -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
   </script>
   <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
     integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous">
@@ -66,6 +71,8 @@
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
     integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous">
   </script>
+  <!-- local javascript -->
+  <script src="./assets/javascript/googlebooks_api.js" type="text/javascript"></script>
   <script>
     $(document).ready(function () {
       $('body').bootstrapMaterialDesign();
