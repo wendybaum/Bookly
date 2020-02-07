@@ -21,10 +21,21 @@
 
 <body>
   <div class="wrapper">
-    <header id="header" class="purpleDark text-purpleLight">
-      <h1>Bookly</h1>
-    </header>
-    <section id="userInstructions">
+    <nav id="header" class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Bookly</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section id="userInstructions" class="container-fluid">
+      <img src="./assets/images/bookshelves.jpg" class="img-fluid" alt="Responsive image">
       <p>Enter your <span class="text-purpleAccent">Google Books</span> UserId in the text box below. We will display
         your Bookshelf and include links to
         free copies from the Open Library initiative.</p>
