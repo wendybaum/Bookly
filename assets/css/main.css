@@ -15,10 +15,6 @@
     color: #f3e5f5;
 }
 
-body {
-    background-color: #f3e5f5;
-}
-
 /* General Styles */
 * {
     font-family: 'Roboto', sans-serif;
@@ -43,11 +39,10 @@ h5 {
 .wrapper {
     display: grid;
     grid-template-columns: repeat(1, auto);
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(3, auto);
     grid-template-areas:
         "header"
-        "userInstructions"
-        "ui"
+        "jumbotron"
         "results";
     gap: 1rem;
     padding-bottom: 3rem;
@@ -70,16 +65,17 @@ h5 {
     padding-left: 1rem;
 }
 
-#userInstructions {
-    grid-area: userInstructions;
-    padding: 1rem;
-    line-height: 1.75rem;
+.jumbotron {
+    grid-area: jumbotron;
+    background-image: url(/assets/images/bookshelves.jpg);
+    color: white;
 }
 
 #userInput {
-    grid-area: ui;
     padding: 1rem;
     line-height: 1.75rem;
+    background-color: white;
+    border-radius: 10px;
 }
 
 #results {
@@ -104,8 +100,7 @@ h5 {
         grid-template-columns: repeat(8, 1fr);
         grid-template-areas:
             "header header header header header header header header"
-            "userInstructions userInstructions userInstructions userInstructions userInstructions userInstructions . ."
-            "ui ui ui ui . . . ."
+            "jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron"
             "results results results results results results results results";
         gap: 1rem;
     }
@@ -116,13 +111,11 @@ h5 {
     }
     
     #userInput {
-        grid-area: ui;
         padding: 1rem;
         line-height: 1.75rem;
     }
     
     #results {
-        grid-area: results;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-around;
