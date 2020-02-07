@@ -20,7 +20,7 @@ function updatePage(libraryBooks) {
   $(".card-img-top").attr("src", book.volumeInfo.imageLinks.thumbnail);
   $(".card-title").text("Title: " + book.volumeInfo.title);
   $(".card-text").text("Description: " + book.volumeInfo.description);
-  // test
+  // for testing only, links to over page not free version
   $('.card-link').attr('href', "https://openlibrary.org/isbn/" + isbn);
 
   // none of these worked
@@ -32,7 +32,7 @@ function updatePage(libraryBooks) {
   document.getElementsByClassName('list-group-item')[0].innerHTML = "Author: " + book.volumeInfo.authors[0];
   document.getElementsByClassName('list-group-item')[2].innerHTML = "Publisher: " + book.volumeInfo.publisher;
   document.getElementsByClassName('list-group-item')[3].innerHTML = "Date Published: " + book.volumeInfo.publishedDate;
-  document.getElementsByClassName('list-group-item')[1].innerHTML = isbn;
+  document.getElementsByClassName('list-group-item')[1].innerHTML = "ISBN" + isbn;
 
   // returns {}
   // "https://openlibrary.org/api/books?bibkeys=ISBN:1786469561&format=json&callback=mycallback"
