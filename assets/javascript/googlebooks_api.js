@@ -8,8 +8,6 @@ function updatePage(libraryBooks) {
       var book = libraryBooks.items[i];
       console.log("------------------------------------");
       console.log("book", book);  
-     
-      buildCard(book);        
     }
  }
 
