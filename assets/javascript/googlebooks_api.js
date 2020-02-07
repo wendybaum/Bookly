@@ -14,7 +14,7 @@ function updatePage(libraryBooks) {
       $(".card-title").text(book.volumeInfo.title);
       $(".card-text").text(book.volumeInfo.description);
      
-      // none of these worked
+      // nne of these worked
       //$("#author").innerText = book.volumeInfo.authors[0];
       //$("#author").innerHTML = book.volumeInfo.authors[0];    
       //$("#author").value = book.volumeInfo.authors[0];
