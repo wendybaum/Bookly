@@ -74,7 +74,7 @@ h5 {
 
 
 #hero {
-    background-image: url("../assets/images/books_415x247.jpg");
+    background-image: url("../images/books_415x247.jpg");
     background-repeat: repeat-x;
     background-blend-mode: lighten;
     padding: 1rem;
