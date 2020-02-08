@@ -57,9 +57,6 @@ function updatePage(libraryBooks) {
   }
 }
 
-
-
-
 // handle Submit button
 $("#submitBtn").on("click", function(event) {
   event.preventDefault();
