@@ -1,20 +1,3 @@
-/* Color Palette */
-.purpleDark {
-    background-color: #7b1fa2;
-}
-
-.purpleAccent {
-    background-color: #ea80fc;
-}
-
-.text-purpleAccent {
-    color: #ea80fc;
-}
-
-.text-purpleLight {
-    color: #f3e5f5;
-}
-
 /* General Styles */
 * {
     font-family: 'Roboto', sans-serif;
@@ -34,41 +17,6 @@ h5 {
 
 .space {
     margin-left: .5rem;
-}
-
-.wrapper {
-    display: grid;
-    grid-template-columns: repeat(1, auto);
-    grid-template-rows: repeat(3, auto);
-    grid-template-areas:
-        "header"
-        "jumbotron"
-        "results";
-    gap: 1rem;
-    padding-bottom: 3rem;
-}
-
-.btn-outline-primary {
-    border-color: #ea80fc!important;
-}
-
-.btn {
-    color: #ea80fc!important;
-}
-
-.active {
-    border-color: #6a1b9a!important;
-}
-
-#header {
-    grid-area: header;
-    padding-left: 1rem;
-}
-
-.jumbotron {
-    grid-area: jumbotron;
-    background-image: url(/assets/images/bookshelves.jpg);
-    color: white;
 }
 
 #userInput {
@@ -91,34 +39,58 @@ h5 {
 
 .card {
     width: 15rem;
+    margin: 1rem;
+    height: fit-content;
 }
 
-/* Desktop version */
-@media screen and (min-width: 505px ) {
-    .wrapper {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        grid-template-areas:
-            "header header header header header header header header"
-            "jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron jumbotron"
-            "results results results results results results results results";
-        gap: 1rem;
-    }
-
-    #header {
-        grid-area: header;
-        padding-left: 1rem;
-    }
-    
-    #userInput {
-        padding: 1rem;
-        line-height: 1.75rem;
-    }
-    
-    #results {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-around;
-    }
-
+.ml {
+    margin-left: 1rem;
 }
+
+.mr {
+    margin-right: 3rem;
+}
+
+#hero {
+    background-image: url(/assets/images/books_415x247.jpg);
+    background-repeat: repeat-x;
+    background-blend-mode: lighten;
+    padding: 1rem;
+    margin-top: 1rem;
+    height: 250px;
+    width: 100%;
+}
+
+#userInput {
+    position: relative;
+    top: 2.7rem;
+}
+
+#bookUserId {
+    width: 90%;
+    margin-right: 1rem;
+}
+
+@media screen and (min-width: 780px) {
+    #hero {
+        background-image: url(/assets/images/books_780x465.jpg)
+    }
+
+    #bookUserId {
+        width: 95%;
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #hero {
+        background-image: url(/assets/images/books_1200x715.jpg)
+    }
+}
+
+@media screen and (min-width: 1900px) {
+    #hero {
+        background-image: url(/assets/images/books_1900x1132.jpg)
+    }
+}
+
