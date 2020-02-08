@@ -21,32 +21,42 @@
 
 <body>
   <div class="wrapper">
-    <header id="header" class="purpleDark text-purpleLight">
-      <h1>Bookly</h1>
-    </header>
-    <section id="userInstructions">
-      <p>Enter your <span class="text-purpleAccent">Google Books</span> UserId in the text box below. We will display
-        your Bookshelf and include links to
-        free copies from the Open Library initiative.</p>
-    </section>
-    <div id="userInput">
-      <div class="form-group">
-        <input type="text" class="form-control" id="bookUserId" placeholder="Google Books UserId">
+    <nav id="header" class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Bookly</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
       </div>
-      <button type="submit" class="btn btn-large btn-outline-primary btn-primary" id="submitBtn">Submit</button>
+    </nav>
+    <div class="jumbotron">
+      <h1 class="display-4">Bookly</h1>
+      <p class="lead">Search your Google 'To Read' Bookshelf for free books in Open Library</p>
+      <div id="userInput">
+        <div class="form-group">
+          <input type="text" class="form-control" id="bookUserId" placeholder="Google Books UserId">
+        </div>
+        <button type="submit" class="btn btn-large btn-outline-primary btn-primary" id="submitBtn">Submit</button>
+      </div>
     </div>
     <main id="results">
       <div class="card">
         <img class="card-img-top" src="./assets/images/book.jfif" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Author: Some, Author</li>
-          <li class="list-group-item">ISBN: 978-3-16-148410-0</li>
+          <li class="list-group-item">Author:</li>
+          <li class="list-group-item">ISBN:</li>
           <li class="list-group-item">Publisher: Some Publisher</li>
-          <li class="list-group-item">Year: 1995</li>
+          <li class="list-group-item">Year: 1996</li>
         </ul>
         <div class="card-body">
           <a href="#" class="card-link"><i class="fas fa-link"></i><span class="space">Open Library link</span></a>
@@ -56,14 +66,9 @@
   </div>
   <!-- Optional JavaScript -->
   <script src="https://kit.fontawesome.com/5cc434ff75.js" crossorigin="anonymous"></script>
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <!-- slim min not recognizing $ -->
-  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script> -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
   </script>
   <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
     integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous">

@@ -7,8 +7,14 @@ function updatePage(libraryBooks) {
       // get a specific book from the library
       var book = libraryBooks.items[i];
       console.log("------------------------------------");
+
       console.log("book", book);            
       newCard(i, book);
+      
+      //To resolve conflicts I commented these two lines out. ---- Please Review ----
+      //console.log("book", book); 
+      //buildCard(book);
+
     }
  }
 
@@ -48,20 +54,34 @@ function updatePage(libraryBooks) {
    // key in isbn 10 format to retrieve data from Open Library API
   var isbn = book.volumeInfo.industryIdentifiers[1].identifier;      
 
+
   $("#image_" + i).attr("src", book.volumeInfo.imageLinks.thumbnail);  
   $("#summary_" + i).text(book.volumeInfo.description); 
+
+  $(".card-img-top").attr("src", book.volumeInfo.imageLinks.thumbnail);
+
+  $(".card-text").text(book.volumeInfo.description);
+  // test
+  $('.card-link').attr('href', "https://openlibrary.org/isbn/" + isbn);
 
   // TBD use jquery to select list items by id none of these worked
   //$("#author").innerText = book.volumeInfo.authors[0];
   //$("#author").innerHTML = book.volumeInfo.authors[0];    
   //$("#author").value = book.volumeInfo.authors[0];
   //$("#author").textContent = book.volumeInfo.authors[0];
+
   //$("#author").text(book.volumeInfo.authors[0]);
   // TBD Can the static strings be done in the html instead
   // document.getElementsByClassName('list-group-item')[0].innerHTML = "Author: " + book.volumeInfo.authors[0];
   // document.getElementsByClassName('list-group-item')[2].innerHTML = "Publisher: " + book.volumeInfo.publisher;
   // document.getElementsByClassName('list-group-item')[3].innerHTML = "Date Published: " + book.volumeInfo.publishedDate;
   // document.getElementsByClassName('list-group-item')[1].innerHTML = isbn;
+
+  // TBD Can the static strings be done in the html
+  document.getElementsByClassName('list-group-item')[0].innerHTML = "Author: " + book.volumeInfo.authors;
+  document.getElementsByClassName('list-group-item')[2].innerHTML = "Publisher: " + book.volumeInfo.publisher;
+  document.getElementsByClassName('list-group-item')[3].innerHTML = "Date Published: " + book.volumeInfo.publishedDate;
+  document.getElementsByClassName('list-group-item')[1].innerHTML = "ISBN: " + isbn;
 
   // for testing: first url returns {}
   // "https://openlibrary.org/api/books?bibkeys=ISBN:1786469561&format=json&callback=mycallback"
