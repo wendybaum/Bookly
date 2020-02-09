@@ -1,3 +1,4 @@
+/* Entry point: builds a HTML card populated with book details for each book in the library */
 function updatePage(libraryBooks) {  
     var numBooks = libraryBooks.totalItems;
     console.log("num books:"+ numBooks);
@@ -7,86 +8,77 @@ function updatePage(libraryBooks) {
       // get a specific book from the library
       var book = libraryBooks.items[i];
       console.log("------------------------------------");
-
       console.log("book", book);            
       newCard(i, book);
-      
-      //To resolve conflicts I commented these two lines out. ---- Please Review ----
-      //console.log("book", book); 
-      //buildCard(book);
-
     }
  }
 
+ /* Build a HTML Card */
  function newCard(i, book) {
   console.log("index: " + i);  
   
   // main card div
   var htmlCard = $("<div class='card'></div>");
+  
+    // book thumbnail  
+  var imageDiv = $("<div class='card-image waves-effect waves-block waves-light'></div>");
+  console.log("imageDiv ", imageDiv)
+  imageDiv.append($("<img class='card-img-top activator'></img>").attr("id", "image_" + i));
+  console.log("imageDiv2 ", imageDiv)
+  htmlCard.append(imageDiv);
 
-  // book thumbnail  
-  htmlCard.append($("<img class='card-img-top'></img>").attr("id", "image_" + i));
-
-  // card summary div
-  htmlCard.append($("<div class='card-body'></div>").append("<p class='card-text'></p>").attr("id", "summary_" + i));
-
-  // book details
-  var list = $("<ul class='list-group list-group-flush'></ul>");
-  // TBD list items 
-  // list.append($("class='list-group-item'"));
-  // list.append($("class='list-group-item'")).attr("id", "isbn_" + i).text("item 2");
-  // list.append($("class='list-group-item'")).attr("id", "publisher_" + i).text("item 3");
-  // list.append($("class='list-group-item'")).attr("id", "year_" + i).text("item 4");
-  htmlCard.append(list);
+  // card content
+  var contentDiv = $("<div class='card-content'></div>");
+  contentDiv.append($("<span card-title activator grey-text text-darken-4>'Card Title'<i class='material-icons right>'more_vert'</i></span>")).attr("id", "title_1" + i);
 
   // open library link
-  htmlCard.append($("<div class='card-body'></div>")
-  .append("<a href='#' class='card-link'><i class='fas fa-link'></i><span class='space'>OL link</span></a>"))
-  .attr("id", "link_" + i);
+  contentDiv.append($("<a href='#' class='card-link'>'OL Link'</span></a>").attr("id", "link_" + i));
+  htmlCard.append(contentDiv);
+  console.log("contentDiv: ", contentDiv);
 
-  console.log("new card: ", htmlCard);
+  // card reveal div
+  var revealDiv = $("<div class='card-body'></div>").append("<p class='card-text'></p>");
+  var span = $("<span 'card-title grey-text text-darken-4'>'Card Title'<i class='material-icons right'>close</i></span>").attr("id", "title_2" + i);
+  revealDiv.append(span);
+  revealDiv.append($("<p class='card-text'>'Some quick example text to build on the card title and make up the bulk of the card content.'</p>")).attr("id", "summary_" + i);
+
+  // book details
+  var list = $("<ul class='list-group list-group-flush'></ul>");  
+  list.append($("<li class='list-group-item'></li>").attr("id", "author_" + i));
+  list.append($("<li class='list-group-item'></li>").attr("id", "isbn_" + i));
+  list.append($("<li class='list-group-item'></li>").attr("id", "publisher_" + i));
+  list.append($("<li class='list-group-item'></li>").attr("id", "year_" + i));
+  revealDiv.append(list);
+  console.log("revealDiv", revealDiv)
+
+  htmlCard.append(revealDiv);  
+  console.log("htmlCard", htmlCard);
+
   $("#results").append(htmlCard);
   populateCard(i, book); 
  
  }
 
+ /* Add data from Google Books and Open Libary to the HTML Card */
  function populateCard(i, book) {
    // key in isbn 10 format to retrieve data from Open Library API
-  var isbn = book.volumeInfo.industryIdentifiers[1].identifier;      
-
-
+   var isbn = book.volumeInfo.industryIdentifiers[1].identifier;  
+   console.log(isbn)
+   console.log(book.volumeInfo.title)
+   
+  $("#title_1" + i).text(book.volumeInfo.title); 
+  $("#title_2" + i).text(book.volumeInfo.title); 
   $("#image_" + i).attr("src", book.volumeInfo.imageLinks.thumbnail);  
   $("#summary_" + i).text(book.volumeInfo.description); 
-
-  $(".card-img-top").attr("src", book.volumeInfo.imageLinks.thumbnail);
-
-  $(".card-text").text(book.volumeInfo.description);
-  // test
-  $('.card-link').attr('href', "https://openlibrary.org/isbn/" + isbn);
-
-  // TBD use jquery to select list items by id none of these worked
-  //$("#author").innerText = book.volumeInfo.authors[0];
-  //$("#author").innerHTML = book.volumeInfo.authors[0];    
-  //$("#author").value = book.volumeInfo.authors[0];
-  //$("#author").textContent = book.volumeInfo.authors[0];
-
-  //$("#author").text(book.volumeInfo.authors[0]);
-  // TBD Can the static strings be done in the html instead
-  // document.getElementsByClassName('list-group-item')[0].innerHTML = "Author: " + book.volumeInfo.authors[0];
-  // document.getElementsByClassName('list-group-item')[2].innerHTML = "Publisher: " + book.volumeInfo.publisher;
-  // document.getElementsByClassName('list-group-item')[3].innerHTML = "Date Published: " + book.volumeInfo.publishedDate;
-  // document.getElementsByClassName('list-group-item')[1].innerHTML = isbn;
-
-  // TBD Can the static strings be done in the html
-  document.getElementsByClassName('list-group-item')[0].innerHTML = "Author: " + book.volumeInfo.authors;
-  document.getElementsByClassName('list-group-item')[2].innerHTML = "Publisher: " + book.volumeInfo.publisher;
-  document.getElementsByClassName('list-group-item')[3].innerHTML = "Date Published: " + book.volumeInfo.publishedDate;
-  document.getElementsByClassName('list-group-item')[1].innerHTML = "ISBN: " + isbn;
+  $("#author_" + i).text(book.volumeInfo.authors[0]);
+  $("#publisher_" + i).text(book.volumeInfo.publisher);
+  $("#year_" + i).text(book.volumeInfo.publishedDate);
+  $("#isbn_" + i).text(book.volumeInfo.isbn);
 
   // for testing: first url returns {}
   // "https://openlibrary.org/api/books?bibkeys=ISBN:1786469561&format=json&callback=mycallback"
   // "https://openlibrary.org/api/books?bibkeys=ISBN:1593272820&format=json&callback=mycallback"
-  var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json"
+  var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + book.volumeInfo.isbn + "&format=json"
   console.log("queryURL2: " + queryURL2);
 
   // call to Open Library API to get link to free online version of book by ISBN
@@ -100,12 +92,12 @@ function updatePage(libraryBooks) {
     console.log("updateLink response: ", response)    
     var link = "https://openlibrary.org/isbn/" + isbn;
     console.log("link: " + link);
-     // test only; doesn't link to free version yet
+     // TBD doesn't link to free version yet
     $('#link_' + i).attr('href', link);
   }
 }
 
-// handle Submit button
+/* Handle Submit button */
 $("#submitBtn").on("click", function(event) {
   event.preventDefault();
   
