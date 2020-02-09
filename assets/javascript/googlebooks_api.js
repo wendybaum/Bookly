@@ -16,6 +16,11 @@ function updatePage(libraryBooks) {
  /* Build a HTML Card */
  function newCard(i, book) {
   console.log("index: " + i);  
+
+//   $('<div/>',{
+//     text: 'Div text',
+//     class: 'className'
+// }).appendTo('#parentDiv');
   
   // main card div
   var htmlCard = $("<div class='card'></div>");
@@ -27,14 +32,15 @@ function updatePage(libraryBooks) {
 
   // card content
   var contentDiv = $("<div class='card-content'></div>");
-  contentDiv.append($("<span card-title activator grey-text text-darken-4>'Card Title'<i class='material-icons right>'more_vert'</i></span>").attr("id", "title_1" + i));
+  contentDiv.append($("<span class='card-title activator grey-text text-darken-4'>'Card Title'<i class='material-icons right>'more_vert'</i></span>").attr("id", "title_1" + i));
 
   // open library link
-  contentDiv.append($("<a href='#' class='card-link'>'OL Link'</span></a>").attr("id", "link_" + i));
+  var imagePara = $("<p></p>").append($("<a href='#' class='card-link'>Free Version</span></a>").attr("id", "link_" + i));
+  contentDiv.append(imagePara);
   htmlCard.append(contentDiv);
   
   // card reveal div
-  var revealDiv = $("<div class='card-body'></div>").append("<p class='card-text'></p>");
+  var revealDiv = $("<div class='card-reveal'></div>").append("<p class='card-text'></p>");
   var span = $("<span 'card-title grey-text text-darken-4'>'Card Title'<i class='material-icons right'>close</i></span>").attr("id", "title_2" + i);
   revealDiv.append(span);
   revealDiv.append($("<p class='card-text'>'Some quick example text to build on the card title and make up the bulk of the card content.'</p>")).attr("id", "summary_" + i);
