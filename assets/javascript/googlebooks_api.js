@@ -27,17 +27,24 @@ function updatePage(libraryBooks) {
 
   // card content
   var contentDiv = $("<div class='card-content'></div>");
-  contentDiv.append($("<span card-title activator grey-text text-darken-4>'Card Title'<i class='material-icons right>'more_vert'</i></span>").attr("id", "title_1" + i));
+  var span1 = $("<span class='card-title activator grey-text text-darken-4'>Card Title<i class='material-icons right'>more_vert</i></span>");  
+  //.attr("id", "title1_" + i));
+
+  contentDiv.append(span1);
+  //contentDiv.append(emphasis)
 
   // open library link
-  contentDiv.append($("<a href='#' class='card-link'>'OL Link'</span></a>").attr("id", "link_" + i));
+  var imagePara = $("<p></p>").append($("<a href='#' class='card-link'>Free Version</span></a>").attr("id", "link_" + i));
+  contentDiv.append(imagePara);
   htmlCard.append(contentDiv);
   
   // card reveal div
-  var revealDiv = $("<div class='card-body'></div>").append("<p class='card-text'></p>");
-  var span = $("<span 'card-title grey-text text-darken-4'>'Card Title'<i class='material-icons right'>close</i></span>").attr("id", "title_2" + i);
-  revealDiv.append(span);
-  revealDiv.append($("<p class='card-text'>'Some quick example text to build on the card title and make up the bulk of the card content.'</p>")).attr("id", "summary_" + i);
+  var revealDiv = $("<div class='card-reveal'></div>");
+  var span2 = $("<span class='card-title grey-text text-darken-4'>'Card Title'<i class='material-icons right'>close</i></span>");
+  //.attr("id", "title2_" + i);
+  revealDiv.append(span2);
+  var textPara = $("<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card content.</p>").attr("id", "summary_" + i);
+  revealDiv.append(textPara);
 
   // book details
   var list = $("<ul class='list-group list-group-flush'></ul>");  
@@ -58,10 +65,11 @@ function updatePage(libraryBooks) {
  /* Add data from Google Books and Open Libary to the HTML Card */
  function populateCard(i, book) {
    // key in isbn 10 format to retrieve data from Open Library API
-   var isbn = book.volumeInfo.industryIdentifiers[1].identifier;  
+   var isbn = book.volumeInfo.industryIdentifiers[1].identifier; 
+   console.log("isbn" + isbn) 
    
-  $("#title_1" + i).text(book.volumeInfo.title); 
-  $("#title_2" + i).text(book.volumeInfo.title); 
+  $("#title1_" + i).text(book.volumeInfo.title); 
+  $("#title2_" + i).text(book.volumeInfo.title); 
   $("#image_" + i).attr("src", book.volumeInfo.imageLinks.thumbnail);  
   $("#summary_" + i).text(book.volumeInfo.description); 
   $("#author_" + i).text(book.volumeInfo.authors[0]);
