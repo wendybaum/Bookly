@@ -29,7 +29,7 @@ function updatePage(libraryBooks) {
 
   // card content
   var contentDiv = $("<div class='card-content'></div>");
-  contentDiv.append($("<span card-title activator grey-text text-darken-4>'Card Title'<i class='material-icons right>'more_vert'</i></span>")).attr("id", "title_1" + i);
+  contentDiv.append($("<span card-title activator grey-text text-darken-4>'Card Title'<i class='material-icons right>'more_vert'</i></span>").attr("id", "title_1" + i));
 
   // open library link
   contentDiv.append($("<a href='#' class='card-link'>'OL Link'</span></a>").attr("id", "link_" + i));
