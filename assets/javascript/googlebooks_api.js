@@ -21,10 +21,8 @@ function updatePage(libraryBooks) {
   var htmlCard = $("<div class='card'></div>");
   
     // book thumbnail  
-  var imageDiv = $("<div class='card-image waves-effect waves-block waves-light'></div>");
-  console.log("imageDiv ", imageDiv)
+  var imageDiv = $("<div class='card-image waves-effect waves-block waves-light'></div>");  
   imageDiv.append($("<img class='card-img-top activator'></img>").attr("id", "image_" + i));
-  console.log("imageDiv2 ", imageDiv)
   htmlCard.append(imageDiv);
 
   // card content
@@ -34,8 +32,7 @@ function updatePage(libraryBooks) {
   // open library link
   contentDiv.append($("<a href='#' class='card-link'>'OL Link'</span></a>").attr("id", "link_" + i));
   htmlCard.append(contentDiv);
-  console.log("contentDiv: ", contentDiv);
-
+  
   // card reveal div
   var revealDiv = $("<div class='card-body'></div>").append("<p class='card-text'></p>");
   var span = $("<span 'card-title grey-text text-darken-4'>'Card Title'<i class='material-icons right'>close</i></span>").attr("id", "title_2" + i);
@@ -49,10 +46,9 @@ function updatePage(libraryBooks) {
   list.append($("<li class='list-group-item'></li>").attr("id", "publisher_" + i));
   list.append($("<li class='list-group-item'></li>").attr("id", "year_" + i));
   revealDiv.append(list);
-  console.log("revealDiv", revealDiv)
 
   htmlCard.append(revealDiv);  
-  console.log("htmlCard", htmlCard);
+  console.log("htmlCard ==>", htmlCard);
 
   $("#results").append(htmlCard);
   populateCard(i, book); 
@@ -63,8 +59,6 @@ function updatePage(libraryBooks) {
  function populateCard(i, book) {
    // key in isbn 10 format to retrieve data from Open Library API
    var isbn = book.volumeInfo.industryIdentifiers[1].identifier;  
-   console.log(isbn)
-   console.log(book.volumeInfo.title)
    
   $("#title_1" + i).text(book.volumeInfo.title); 
   $("#title_2" + i).text(book.volumeInfo.title); 
