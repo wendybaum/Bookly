@@ -1,3 +1,4 @@
+
 /* Entry point: builds a HTML card populated with book details for each book in the library */
 function updatePage(libraryBooks) {  
   var numBooks = libraryBooks.totalItems;
@@ -154,9 +155,12 @@ function populateCard(i, book) {
 /* Handle Submit button */
 $("#submitBtn").on("click", function(event) {
   event.preventDefault();
+
   // make sure you start with no cards
-  document.getElementById("results").innerHTML = ""; 
-  
+  document.getElementById("results").innerHTML = "";  
+
+
+
   var userId = $("#bookUserId").val().trim();
   console.log("userId = " + userId);
   var bookShelfId = 2;
@@ -167,8 +171,11 @@ $("#submitBtn").on("click", function(event) {
   //var queryURL = "https://www.googleapis.com/books/v1/users/110649015730155949938/bookshelves/2/volumes";
 
   // actual url  
+
   var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
   console.log("queryURL: " + queryURL);  
+
+
 
   // call to Google Books API to get books from 'To Read' Library
   // the response is passed as an argument to updatePage
@@ -177,5 +184,9 @@ $("#submitBtn").on("click", function(event) {
     method: "GET"
   }).then(updatePage);
   
+
+  clicked = true;
+
+  $('#bookUserId').val("");
 
 });
