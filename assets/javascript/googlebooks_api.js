@@ -1,5 +1,4 @@
-//Variable for checking if the search button has been clicked already.
-let clicked = false;
+
 /* Entry point: builds a HTML card populated with book details for each book in the library */
 function updatePage(libraryBooks) {  
   var numBooks = libraryBooks.totalItems;
@@ -9,9 +8,14 @@ function updatePage(libraryBooks) {
   for (var i = 0; i < numBooks; i++) {        
     // get one book from the library and create a html bootstrap card
     var book = libraryBooks.items[i];
-    console.log("------------------------------------");
-    console.log("book: ", book);            
-    newCard(i, book);
+    //console.log("------------------------------------");
+    //console.log("book: ", book); 
+    if (!$.isEmptyObject(book)) {
+      newCard(i, book);
+    }  else {
+      console.log("Empty book!");
+    }         
+   
   }
 }
 
@@ -29,14 +33,6 @@ function newCard(i, book) {
 
   // card content
   var contentDiv = $("<div class='card-content'></div>");
-
-  // did not work to add id to span element like this, the 3 dots do not appear
-  //  var span1 = "<span class='card-title activator grey-text text-darken-4'";
-  //  span1 += "id=title1_" + i + ">Card Title";
-  //  span1 += "<i class='material-icons right'>more_vert</i></span>";
-  //  console.log(span1);
-  //  var spanFinal = $(span1)
-  //contentDiv.append(spanFinal);
 
   // this works to show the 3 dots but then title cannot be set because there is no id attribute to key on
   //var span1 = $("<span class='card-title activator grey-text text-darken-4'>Card Title<i class='material-icons right'>more_vert</i></span>");
@@ -78,6 +74,7 @@ function newCard(i, book) {
 
 /* Add data from Google Books and Open Libary to the HTML Card */
 function populateCard(i, book) {
+ 
   // key in isbn 10 format to retrieve data from Open Library API
   var isbn = book.volumeInfo.industryIdentifiers[1].identifier; 
   console.log("isbn: " + isbn) 
@@ -85,12 +82,12 @@ function populateCard(i, book) {
   // append a little hack below to show 'more details' and close 'more details' prompts
   var title = book.volumeInfo.title;
   console.log("title: " + title);
-  if (title !== "") {
+  if (title  !== "") {
     $("#title1_" + i).text(title + "  ..."); 
     $("#title2_" + i).text(title + "     x"); 
   };
 
-  if (book.volumeInfo.imageLinks.thumbnail !== "") {
+  if (book.volumeInfo.imageLinks.thumbnail  !== "") {
     $("#image_" + i).attr("src", book.volumeInfo.imageLinks.thumbnail); 
   };
 
@@ -113,11 +110,13 @@ function populateCard(i, book) {
     $("#isbn_" + i).text("ISBN: " + isbn);
     // call to Open Library API to get link to free online version of book by ISBN
     // the response is passed as an argument to getFreeVersionLink
-    var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json"
-
-    // unfortunately this is CORS api
-    //var queryURL2 = "http://openlibrary.org/api/volumes/brief/isbn/" + isbn + ".json"
+    var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json";
     console.log("queryURL2: " + queryURL2);
+    // api will full details
+    //var queryURL3 = "http://openlibrary.org/api/volumes/brief/isbn/" + isbn + ".json";
+    //console.log("queryURL3: " + queryURL3);
+    
+   
     $.ajax({
       url: queryURL2,
       method: "GET"
@@ -126,34 +125,41 @@ function populateCard(i, book) {
 
 }; 
 
- function getFreeVersionLink (response) {    
-    if (Object.keys(response).length === 0 && response.constructor === Object) {
-      // do nothing
-      console.log("Warning: No data found in Open Library");
-    } else {
-       var key = "ISBN:" + isbn;      
-       var isFreeVersion = response[key].preview;
-       console.log("viewability: ") + isFreeVersion;
-       if (isFreeVersion === ("full" || "borrow")) {
-         console.log("YAY I found a free version")
-         var link = "https://openlibrary.org/isbn/" + isbn;
-         console.log("link: " + link); 
-         $('#link_' + i).text("Free Version"); 
-         $('#link_' + i).attr('href', link);
-       }
-    }
-    
-  }
+ function getFreeVersionLink(response) {
+   
+   if (Object.keys(response).length === 0 && response.constructor === Object) {
+     // do nothing
+     console.log("No data found in Open Library for isbn: " + isbn);
+   } else {
+     var isFreeVersion = response["ISBN:" + isbn].preview;
+     var previewUrl = response["ISBN:" + isbn].preview_url;
+     console.log("viewable: " + isFreeVersion);
+     console.log("preview_url: " + previewUrl);
+
+     if (isFreeVersion === "full" || isFreeVersion === "borrow") {
+       console.log("YAY I found a free version");
+       var link = "https://openlibrary.org/isbn/" + isbn;
+       console.log("Free book link: " + link);
+       $("#link_" + i).text("Free Version");
+       $("#link_" + i).attr("href", link);
+     } else if (isFreeVersion === "restricted") {
+       $("#link_" + i).text("Preview");
+       $("#link_" + i).attr("href", previewUrl);
+     } else if (isFreeVersion === "noview") {
+       // no preview is available
+     }
+   }
+ }
 }
 
 /* Handle Submit button */
 $("#submitBtn").on("click", function(event) {
   event.preventDefault();
-  let textInput = $('#bookUserId').val();
 
-  if (clicked == true && textInput == false) {
-    return false;
-  } 
+  // make sure you start with no cards
+  document.getElementById("results").innerHTML = "";  
+
+
 
   var userId = $("#bookUserId").val().trim();
   console.log("userId = " + userId);
@@ -162,11 +168,14 @@ $("#submitBtn").on("click", function(event) {
   // Wendy test url    
   //var queryURL = "https://www.googleapis.com/books/v1/users/114631064343079059920/bookshelves/2/volumes";
   // Rob test url
-  var queryURL = "https://www.googleapis.com/books/v1/users/110649015730155949938/bookshelves/2/volumes";
+  //var queryURL = "https://www.googleapis.com/books/v1/users/110649015730155949938/bookshelves/2/volumes";
 
   // actual url  
-  //var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
-  console.log("queryURL: " + queryURL);
+
+  var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
+  console.log("queryURL: " + queryURL);  
+
+
 
   // call to Google Books API to get books from 'To Read' Library
   // the response is passed as an argument to updatePage
@@ -174,6 +183,7 @@ $("#submitBtn").on("click", function(event) {
     url: queryURL,
     method: "GET"
   }).then(updatePage);
+  
 
   clicked = true;
 
