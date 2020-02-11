@@ -1,4 +1,4 @@
- /* Entry point: builds a HTML card populated with book details for each book in the library */
+/* Entry point: builds a HTML card populated with book details for each book in the library */
 function updatePage(libraryBooks) {  
   var numBooks = libraryBooks.totalItems;
   console.log("num books: "+ numBooks);
@@ -7,8 +7,8 @@ function updatePage(libraryBooks) {
   for (var i = 0; i < numBooks; i++) {        
     // get one book from the library and create a html bootstrap card
     var book = libraryBooks.items[i];
-    console.log("------------------------------------");
-    console.log("book: ", book);            
+    //console.log("------------------------------------");
+    //console.log("book: ", book);            
     newCard(i, book);
   }
 }
@@ -27,14 +27,6 @@ function newCard(i, book) {
 
   // card content
   var contentDiv = $("<div class='card-content'></div>");
-
-  // did not work to add id to span element like this, the 3 dots do not appear
-  //  var span1 = "<span class='card-title activator grey-text text-darken-4'";
-  //  span1 += "id=title1_" + i + ">Card Title";
-  //  span1 += "<i class='material-icons right'>more_vert</i></span>";
-  //  console.log(span1);
-  //  var spanFinal = $(span1)
-  //contentDiv.append(spanFinal);
 
   // this works to show the 3 dots but then title cannot be set because there is no id attribute to key on
   //var span1 = $("<span class='card-title activator grey-text text-darken-4'>Card Title<i class='material-icons right'>more_vert</i></span>");
@@ -113,8 +105,7 @@ function populateCard(i, book) {
     // the response is passed as an argument to getFreeVersionLink
     var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json"
 
-    // unfortunately this is CORS api
-    //var queryURL2 = "http://openlibrary.org/api/volumes/brief/isbn/" + isbn + ".json"
+    
     console.log("queryURL2: " + queryURL2);
     $.ajax({
       url: queryURL2,
@@ -147,7 +138,9 @@ function populateCard(i, book) {
 /* Handle Submit button */
 $("#submitBtn").on("click", function(event) {
   event.preventDefault();
-
+  // make sure you start with no cards
+  document.getElementById("results").innerHTML = ""; 
+  
   var userId = $("#bookUserId").val().trim();
   console.log("userId = " + userId);
   var bookShelfId = 2;
@@ -155,11 +148,14 @@ $("#submitBtn").on("click", function(event) {
   // Wendy test url    
   //var queryURL = "https://www.googleapis.com/books/v1/users/114631064343079059920/bookshelves/2/volumes";
   // Rob test url
-  var queryURL = "https://www.googleapis.com/books/v1/users/110649015730155949938/bookshelves/2/volumes";
+  //var queryURL = "https://www.googleapis.com/books/v1/users/110649015730155949938/bookshelves/2/volumes";
 
   // actual url  
-  //var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
-  console.log("queryURL: " + queryURL)
+  var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
+  console.log("queryURL: " + queryURL);
+
+  //document.getElementById("myForm").reset();
+  $("#myForm").trigger("reset");
 
   // call to Google Books API to get books from 'To Read' Library
   // the response is passed as an argument to updatePage
@@ -167,5 +163,6 @@ $("#submitBtn").on("click", function(event) {
     url: queryURL,
     method: "GET"
   }).then(updatePage);
+  
 
 });
