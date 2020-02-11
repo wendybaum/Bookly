@@ -8,8 +8,13 @@ function updatePage(libraryBooks) {
     // get one book from the library and create a html bootstrap card
     var book = libraryBooks.items[i];
     //console.log("------------------------------------");
-    //console.log("book: ", book);            
-    newCard(i, book);
+    //console.log("book: ", book); 
+    if (!$.isEmptyObject(book)) {
+      newCard(i, book);
+    }  else {
+      console.log("Empty book!");
+    }         
+   
   }
 }
 
@@ -68,6 +73,7 @@ function newCard(i, book) {
 
 /* Add data from Google Books and Open Libary to the HTML Card */
 function populateCard(i, book) {
+ 
   // key in isbn 10 format to retrieve data from Open Library API
   var isbn = book.volumeInfo.industryIdentifiers[1].identifier; 
   console.log("isbn: " + isbn) 
@@ -75,36 +81,35 @@ function populateCard(i, book) {
   // append a little hack below to show 'more details' and close 'more details' prompts
   var title = book.volumeInfo.title;
   console.log("title: " + title);
-  if (title !== "") {
+  if (title) {
     $("#title1_" + i).text(title + "  ..."); 
     $("#title2_" + i).text(title + "     x"); 
   };
 
-  if (book.volumeInfo.imageLinks.thumbnail !== "") {
+  if (book.volumeInfo.imageLinks.thumbnail) {
     $("#image_" + i).attr("src", book.volumeInfo.imageLinks.thumbnail); 
   };
 
-  if (book.volumeInfo.description !== "") {
+  if (book.volumeInfo.description) {
     $("#summary_" + i).text(book.volumeInfo.description); 
   };
 
-  if (book.volumeInfo.authors[0] !== "") {
+  if (book.volumeInfo.authors[0]) {
     $("#author_" + i).text("Author: " + book.volumeInfo.authors[0]);
   };
 
-  if (book.volumeInfo.publishedDate !== "") {
+  if (book.volumeInfo.publishedDate) {
     $("#year_" + i).text("Published: " + book.volumeInfo.publishedDate);  
   };
 
-  if (book.volumeInfo.publisher !== "") {
+  if (book.volumeInfo.publisher) {
     $("#publisher_" + i).text("Publisher: " + book.volumeInfo.publisher);
 
-  if (isbn !== "") { 
+  if (isbn) { 
     $("#isbn_" + i).text("ISBN: " + isbn);
     // call to Open Library API to get link to free online version of book by ISBN
     // the response is passed as an argument to getFreeVersionLink
     var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json"
-
     
     console.log("queryURL2: " + queryURL2);
     $.ajax({
@@ -155,7 +160,7 @@ $("#submitBtn").on("click", function(event) {
   console.log("queryURL: " + queryURL);
 
   //document.getElementById("myForm").reset();
-  $("#myForm").trigger("reset");
+  //$("#myForm").trigger("reset");
 
   // call to Google Books API to get books from 'To Read' Library
   // the response is passed as an argument to updatePage
