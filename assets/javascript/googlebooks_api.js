@@ -159,7 +159,7 @@ $("#submitBtn").on("click", function(event) {
 
   // actual url  
   //var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
-  console.log("queryURL: " + queryURL)
+  console.log("queryURL: " + queryURL);
 
   // call to Google Books API to get books from 'To Read' Library
   // the response is passed as an argument to updatePage
@@ -167,5 +167,7 @@ $("#submitBtn").on("click", function(event) {
     url: queryURL,
     method: "GET"
   }).then(updatePage);
+
+  $('#bookUserId').val("");
 
 });
