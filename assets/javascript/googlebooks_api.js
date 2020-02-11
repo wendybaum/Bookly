@@ -81,37 +81,41 @@ function populateCard(i, book) {
   // append a little hack below to show 'more details' and close 'more details' prompts
   var title = book.volumeInfo.title;
   console.log("title: " + title);
-  if (title) {
+  if (title  !== "") {
     $("#title1_" + i).text(title + "  ..."); 
     $("#title2_" + i).text(title + "     x"); 
   };
 
-  if (book.volumeInfo.imageLinks.thumbnail) {
+  if (book.volumeInfo.imageLinks.thumbnail  !== "") {
     $("#image_" + i).attr("src", book.volumeInfo.imageLinks.thumbnail); 
   };
 
-  if (book.volumeInfo.description) {
+  if (book.volumeInfo.description !== "") {
     $("#summary_" + i).text(book.volumeInfo.description); 
   };
 
-  if (book.volumeInfo.authors[0]) {
+  if (book.volumeInfo.authors[0] !== "") {
     $("#author_" + i).text("Author: " + book.volumeInfo.authors[0]);
   };
 
-  if (book.volumeInfo.publishedDate) {
+  if (book.volumeInfo.publishedDate !== "") {
     $("#year_" + i).text("Published: " + book.volumeInfo.publishedDate);  
   };
 
-  if (book.volumeInfo.publisher) {
+  if (book.volumeInfo.publisher !== "") {
     $("#publisher_" + i).text("Publisher: " + book.volumeInfo.publisher);
 
-  if (isbn) { 
+  if (isbn !== "") { 
     $("#isbn_" + i).text("ISBN: " + isbn);
     // call to Open Library API to get link to free online version of book by ISBN
     // the response is passed as an argument to getFreeVersionLink
-    var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json"
-    
+    var queryURL2 = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&format=json";
     console.log("queryURL2: " + queryURL2);
+    // api will full details
+    //var queryURL3 = "http://openlibrary.org/api/volumes/brief/isbn/" + isbn + ".json";
+    //console.log("queryURL3: " + queryURL3);
+    
+   
     $.ajax({
       url: queryURL2,
       method: "GET"
@@ -120,24 +124,31 @@ function populateCard(i, book) {
 
 }; 
 
- function getFreeVersionLink (response) {    
-    if (Object.keys(response).length === 0 && response.constructor === Object) {
-      // do nothing
-      console.log("Warning: No data found in Open Library");
-    } else {
-       var key = "ISBN:" + isbn;      
-       var isFreeVersion = response[key].preview;
-       console.log("viewability: ") + isFreeVersion;
-       if (isFreeVersion === ("full" || "borrow")) {
-         console.log("YAY I found a free version")
-         var link = "https://openlibrary.org/isbn/" + isbn;
-         console.log("link: " + link); 
-         $('#link_' + i).text("Free Version"); 
-         $('#link_' + i).attr('href', link);
-       }
-    }
-    
-  }
+ function getFreeVersionLink(response) {
+   
+   if (Object.keys(response).length === 0 && response.constructor === Object) {
+     // do nothing
+     console.log("No data found in Open Library for isbn: " + isbn);
+   } else {
+     var isFreeVersion = response["ISBN:" + isbn].preview;
+     var previewUrl = response["ISBN:" + isbn].preview_url;
+     console.log("viewable: " + isFreeVersion);
+     console.log("preview_url: " + previewUrl);
+
+     if (isFreeVersion === "full" || isFreeVersion === "borrow") {
+       console.log("YAY I found a free version");
+       var link = "https://openlibrary.org/isbn/" + isbn;
+       console.log("Free book link: " + link);
+       $("#link_" + i).text("Free Version");
+       $("#link_" + i).attr("href", link);
+     } else if (isFreeVersion === "restricted") {
+       $("#link_" + i).text("Preview");
+       $("#link_" + i).attr("href", previewUrl);
+     } else if (isFreeVersion === "noview") {
+       // no preview is available
+     }
+   }
+ }
 }
 
 /* Handle Submit button */
@@ -157,10 +168,7 @@ $("#submitBtn").on("click", function(event) {
 
   // actual url  
   var queryURL = "https://www.googleapis.com/books/v1/users/" + userId + "/bookshelves/" + bookShelfId + "/volumes";
-  console.log("queryURL: " + queryURL);
-
-  //document.getElementById("myForm").reset();
-  //$("#myForm").trigger("reset");
+  console.log("queryURL: " + queryURL);  
 
   // call to Google Books API to get books from 'To Read' Library
   // the response is passed as an argument to updatePage
